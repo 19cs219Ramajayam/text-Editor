@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="textEditor.css">
+<title>Text Editor</title>
+</head>
+<body>
+    <h1>text editor</h1>
+	<div class="center">
+    <abbr title="PDF"><button onclick="save();"><i class="fa fa-print" aria-hidden="true"></i></button></abbr>    
+    <abbr title="bold"><button onclick="format('bold')"><i class="fa fa-bold" aria-hidden="true"></i></button></abbr> 
+    <abbr title="italic"><button onclick="format('italic')"><i class="fa fa-italic" aria-hidden="true"></i></button></abbr>
+    <abbr title="underline"><button onclick="format('underline')"><i class="fa fa-underline" aria-hidden="true"></i></button></abbr>
+    <abbr title="strikethrough"><button onclick="format('strikethrough')"><i class="fa fa-strikethrough" aria-hidden="true"></i></button></abbr>
+    <abbr title="left"><button onclick="format('justifyLeft')" ><i class="fa fa-align-left" aria-hidden="true"></i></button></abbr>
+    <abbr title="center"><button onclick="format('justifyCenter')"><i class="fa fa-align-center" aria-hidden="true"></i></button></abbr>
+    <abbr title="justify"><button onclick="format('justifyFull')"><i class="fa fa-align-justify" aria-hidden="true"></i></button></abbr>
+    <abbr title="right"><button onclick="format('justifyRight')" ><i class="fa fa-align-right" aria-hidden="true"></i></button></abbr>
+    <abbr title="unorderlist"><button onclick="format('insertunorderedlist')"><i class="fa fa-list-ul" aria-hidden="true"></i></button></abbr>
+    <abbr title="orderlist"><button onclick="format('insertorderedlist')"><i class="fa fa-list-ol" aria-hidden="true"></i></button></abbr>
+    <abbr title="delete"><button onclick="format('forwardDelete')"><i class="fa fa-trash-o" aria-hidden="true"></i></button></abbr>
+    <abbr title="undo"><button onclick="format('undo')"><i class="fa fa-undo" aria-hidden="true"></i></button></abbr>
+    <abbr title="repeat"><button onclick="format('redo')"><i class="fa fa-repeat" aria-hidden="true"></i></button></abbr>
+    <abbr title="copy"><button onclick="format('copy')"><i class="fa fa-copy" aria-hidden="true"></i></button></abbr>
+    <abbr title="paste"><button onclick="format('paste')"><i class="fa fa-paste" aria-hidden="true"></i></button></abbr>
+    <abbr title="cut"><button onclick="format('cut')"><i class="fa fa-cut" aria-hidden="true"></i></button></abbr>
+    <abbr title="indent"><button onclick="format('indent')"><i class="fa fa-indent" aria-hidden="true"></i></button></abbr>   
+    <abbr title="dedent"><button onclick="format('outdent')"><i class="fa fa-dedent" aria-hidden="true"></i></button></abbr>
+    <abbr title="subscript"><button onclick="format('subscript')"><i class="fa fa-subscript" aria-hidden="true"></i></button></abbr>
+    <abbr title="superscript"><button onclick="format('superscript')"><i class="fa fa-superscript" aria-hidden="true"></i></button></abbr>
+    <abbr title="image"><button onclick="format('insertImage')"><i class="fa fa-image" aria-hidden="true"></i></button></abbr>
+    <abbr title="link"><button onclick="format('createLink')"><i class="fa fa-link" aria-hidden="true"></i></button></abbr>
+    <abbr title="unlink"><button onclick="format('unlink')"><i class="fa fa-unlink" aria-hidden="true"></i></button></abbr>
+    <abbr title="paragraph"><button onclick="format('insertParagraph')"><i class="fa fa-paragraph" aria-hidden="true"></i></button></abbr>
+</div>
+<div class="center">
+    <select  onchange="formatArg('fontName',this.value);">
+    <option value="Arial">Arial</option>
+    <option value="comic Sans Ms">comic Sans Ms</option>
+    <option value="courier">courier</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Tahoma">Tahoma</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Verdana">Verdana</option>
+    <option value="monospace">monospace</option>
+    <option value="sans-serif">sans-serif</option>
+    <option value="Helvetica">Helvetica</option>
+    <option value="serif">serif</option>
+    </select>
+    <select  onchange="formatArg('formatBlock',this.value);">
+        <option value="H1">H1</option>
+        <option value="H2">H2</option>
+        <option value="H3">H3</option>
+        <option value="H4">H4</option>
+        <option value="H5">H5</option>
+        <option value="H6">H6</option>
+        </select>
+    <select  onchange="formatArg('fontSize',this.value);">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        </select>
+      <span>Fore Color :</span><input type="color" onchange="formatArg('foreColor',this.value);">
+      <span>Background Color Color :</span><input type="color" onchange="formatArg('hiliteColor',this.value);">
+</div>
+<div class="center">
+    <button onclick="format('insertHorizontalRule')">HR</button>
+    <button onclick="document.getElementById('text').style.textTransform='uppercase'">upperCase</button>
+    <button onclick="document.getElementById('text').style.textTransform='lowercase'">lowerCase</button>
+    <button onclick="document.getElementById('text').style.textTransform='capitalize'">capitalize</button>
+    <button onclick="document.getElementById('text').innerHTML=''">Clear all</button>
+    <button onclick="change();">Change Image size</button>
+    <img src="" alt="" srcset=""style="display:none">
+<button onclick="format('selectAll')">Select All</button>
+</div>
+<br>
+<div class="center">      
+    <div id="text" ></div>
+  </div>
+
+	<script>
+        var text=document.getElementById("text");
+		window.addEventListener('load', function(){
+			text.setAttribute('contenteditable', 'true');
+        });
+
+		function format(command) {
+            if(command=="insertImage"){
+                var url=prompt("Enter The Image Path :");
+                document.execCommand(command, false, url);
+                }
+            if(command=="createLink"){
+                const url=prompt("Enter The Image Path :");
+                document.execCommand(command, false, url);
+                const link=document.querySelectorAll('a');
+                link.forEach(item=>{
+                item.target="_blank";
+            });
+            }
+			document.execCommand(command, false, null);
+    }
+    function formatArg(command,arg){
+        document.execCommand(command, false, arg);
+    }
+    function change(){
+                    var width=parseInt(prompt("Enter The Width :",'100'));
+                    var height=parseInt(prompt("Enter The height :",'100'));
+                    const img=document.querySelectorAll('img');
+                    img.forEach(item=>{
+                    item.style.width=width+"px";
+                    item.style.height=height+"px";
+                }); 
+            }
+	</script>
+    <script>
+        function save(){
+            window.print();
+        }
+    </script>
+</body>
+</html>
